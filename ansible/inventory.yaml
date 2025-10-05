@@ -1,6 +1,10 @@
-all:
-  children:
-    myhosts:
-      hosts:
-        my_host_1:
-          ansible_connection: local
+-name: My first play
+hosts: myhosts
+tasks:
+  - name: Ping my hosts
+    ansible.builtin.ping:
+
+  - name: Print message
+    ansible.builtin.debug:
+      msg: Hola mundo, Mauricio Yael
+      
