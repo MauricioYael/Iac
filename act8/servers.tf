@@ -37,10 +37,11 @@ resource "aws_key_pair" "ssh_key" {
 }
 
 resource "aws_instance" "this" {
-  for_each                    = local.instances
-  ami                         = each.value.ami
-  instance_type               = each.value.type
-  key_name                    = aws_key_pair.ssh_key.key_name
+  for_each = local.instances
+  
+  ami           = each.value.ami
+  instance_type = each.value.type
+  key_name      = aws_key_pair.ssh_key.key_name
   associate_public_ip_address = true
 
   tags = {
@@ -52,9 +53,4 @@ output "aws_instances" {
   value = {
     for name, instance in aws_instance.this : name => instance.public_ip
   }
-}
-
-variable "public_key" {
-  description = "Path to the public key file to use for SSH access"
-  type        = string
 }
