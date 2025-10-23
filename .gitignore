@@ -26,3 +26,5 @@
 **/*.log
 **/cache/
 **/tmp/
+.env
+*.backup
