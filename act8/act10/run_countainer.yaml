@@ -1,0 +1,46 @@
+- name: Run HTTPD Container
+  hosts: all  
+  become: yes
+  tasks:
+    - name: Install prerequisites for Docker (Ubuntu/Debian)
+      apt:
+        name:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - gnupg
+          - lsb-release
+        state: present
+        update_cache: yes
+    - name: install docker
+      apt:
+        name: docker.io
+        state: present
+      register: y
+    - name: Starting Docker Daemon
+      service:
+        name: docker
+        state: started
+        enabled: yes
+      when: y.failed == false
+    - name: Ensure python3-docker is present for Ansible docker modules
+      apt:
+        name: python3-docker
+        state: present
+    - name: Pull a Docker Image
+      community.docker.docker_image:
+        name: httpd
+        tag: latest
+        source: pull
+      register: z
+    - name: Checking Pull Status
+      debug:
+        var: z
+    - name: Launching an HTTPD Container
+      community.docker.docker_container:
+        name: apache-server
+        image: httpd:latest
+        state: started
+        published_ports:
+          - "8888:80"
+      when: not z.failed
