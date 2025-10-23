@@ -1,0 +1,5 @@
+instance_type     = "t2.micro"
+ami_id            = "ami-0cfde0ea8edd312d4"
+key_name          = "xiaominmin"
+subnet_id         = "subnet-0a0c60ed24fc4d791"
+security_group_id = "sg-096b6b6ac01380209"
