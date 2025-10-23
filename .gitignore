@@ -1,12 +1,28 @@
 # Terraform
 **/.terraform/
 **/.terraform.lock.hcl
-**/terraform.tfstate*
+**/terraform.tfstate
+**/terraform.tfstate.backup
 **/terraform.tfvars
+**/*.tfplan
+**/.terraform.tfstate.lock.info
+
+# Provider cache
+**/terraform-provider-*
 
 # Ansible
 **/*.retry
+**/ansible.cfg
+
+# AWS
+**/EC2
+**/*.pem
 
 # General
 **/.DS_Store
 **/Thumbs.db
+**/node_modules/
+**/__pycache__/
+**/*.log
+**/cache/
+**/tmp/
